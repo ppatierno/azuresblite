@@ -1,5 +1,7 @@
 # Azure SB Lite
 
+![](images/azuresblite.png)
+
 Access to Microsoft Azure Service Bus from all platforms using AMQP protocol
 
 *Project Description*
