@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{64D163D1-E433-4B60-9A43-FCFC2E92AD50}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ppatierno.AzureSBLite</RootNamespace>
+    <AssemblyName>AzureSBLite.Net</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug\AzureSBLite.Net\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release\AzureSBLite.Net\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Amqp.Net">
+      <HintPath>..\..\packages\AMQPNetLite.1.1.0\lib\net45\Amqp.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Amqp\AmqpEventHubClient.cs" />
+    <Compile Include="..\Amqp\AmqpMessageReceiver.cs" />
+    <Compile Include="..\Amqp\AmqpMessageSender.cs" />
+    <Compile Include="..\Amqp\AmqpMessagingFactory.cs" />
+    <Compile Include="..\Amqp\AmqpQueueClient.cs" />
+    <Compile Include="..\Amqp\AmqpSubscriptionClient.cs" />
+    <Compile Include="..\Amqp\AmqpTopicClient.cs" />
+    <Compile Include="..\Amqp\AmqpTransportSettings.cs" />
+    <Compile Include="..\Amqp\MessageConverter.cs" />
+    <Compile Include="..\BrokeredMessage.cs" />
+    <Compile Include="..\ClientEntity.cs" />
+    <Compile Include="..\EventData.cs" />
+    <Compile Include="..\EventHubClient.cs" />
+    <Compile Include="..\EventHubConsumerGroup.cs" />
+    <Compile Include="..\EventHubReceiver.cs" />
+    <Compile Include="..\EventHubSender.cs" />
+    <Compile Include="..\IMessageClientEntity.cs" />
+    <Compile Include="..\MessageReceiver.cs" />
+    <Compile Include="..\MessageSender.cs" />
+    <Compile Include="..\MessagingFactory.cs" />
+    <Compile Include="..\MessagingFactorySettings.cs" />
+    <Compile Include="..\OnMessageOptions.cs" />
+    <Compile Include="..\Properties\AssemblyInfo.cs" />
+    <Compile Include="..\QueueClient.cs" />
+    <Compile Include="..\ReceiveMode.cs" />
+    <Compile Include="..\ServiceBusConnectionStringBuilder.cs" />
+    <Compile Include="..\SharedAccessSignatureTokenProvider.cs" />
+    <Compile Include="..\SubscriptionClient.cs" />
+    <Compile Include="..\TokenProvider.cs" />
+    <Compile Include="..\TopicClient.cs" />
+    <Compile Include="..\TransportType.cs" />
+    <Compile Include="..\Utility\Action.cs" />
+    <Compile Include="..\Utility\HttpUtility.cs" />
+    <Compile Include="..\Utility\SHA.cs" />
+    <Compile Include="..\Utility\TimeSpanExtension.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

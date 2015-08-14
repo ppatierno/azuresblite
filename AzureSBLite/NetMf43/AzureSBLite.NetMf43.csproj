@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <AssemblyName>AzureSBLite.NetMf</AssemblyName>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ppatierno.AzureSBLite</RootNamespace>
+    <ProjectTypeGuids>{b69e3092-b931-443c-abe7-7e7b65f2a37f};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0753D770-B230-4195-BA31-53B0DBCC0AD6}</ProjectGuid>
+    <TargetFrameworkVersion>v4.3</TargetFrameworkVersion>
+    <NetMfTargetsBaseDir Condition="'$(NetMfTargetsBaseDir)'==''">$(MSBuildExtensionsPath32)\Microsoft\.NET Micro Framework\</NetMfTargetsBaseDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug\AzureSBLite.NetMf43\</OutputPath>
+    <DefineConstants>DEBUG;TRACE,MF_FRAMEWORK_VERSION_V4_3,NETMF</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release\AzureSBLite.NetMf43\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Amqp\AmqpEventHubClient.cs" />
+    <Compile Include="..\Amqp\AmqpMessageReceiver.cs" />
+    <Compile Include="..\Amqp\AmqpMessageSender.cs" />
+    <Compile Include="..\Amqp\AmqpMessagingFactory.cs" />
+    <Compile Include="..\Amqp\AmqpQueueClient.cs" />
+    <Compile Include="..\Amqp\AmqpSubscriptionClient.cs" />
+    <Compile Include="..\Amqp\AmqpTopicClient.cs" />
+    <Compile Include="..\Amqp\AmqpTransportSettings.cs" />
+    <Compile Include="..\Amqp\MessageConverter.cs" />
+    <Compile Include="..\BrokeredMessage.cs" />
+    <Compile Include="..\ClientEntity.cs" />
+    <Compile Include="..\EventData.cs" />
+    <Compile Include="..\EventHubClient.cs" />
+    <Compile Include="..\EventHubConsumerGroup.cs" />
+    <Compile Include="..\EventHubReceiver.cs" />
+    <Compile Include="..\EventHubSender.cs" />
+    <Compile Include="..\IMessageClientEntity.cs" />
+    <Compile Include="..\MessageReceiver.cs" />
+    <Compile Include="..\MessageSender.cs" />
+    <Compile Include="..\MessagingFactory.cs" />
+    <Compile Include="..\MessagingFactorySettings.cs" />
+    <Compile Include="..\OnMessageOptions.cs" />
+    <Compile Include="..\Properties\AssemblyInfo.cs" />
+    <Compile Include="..\QueueClient.cs" />
+    <Compile Include="..\ReceiveMode.cs" />
+    <Compile Include="..\ServiceBusConnectionStringBuilder.cs" />
+    <Compile Include="..\SharedAccessSignatureTokenProvider.cs" />
+    <Compile Include="..\SubscriptionClient.cs" />
+    <Compile Include="..\TokenProvider.cs" />
+    <Compile Include="..\TopicClient.cs" />
+    <Compile Include="..\TransportType.cs" />
+    <Compile Include="..\Utility\Action.cs" />
+    <Compile Include="..\Utility\HttpUtility.cs" />
+    <Compile Include="..\Utility\SHA.cs" />
+    <Compile Include="..\Utility\TimeSpanExtension.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Amqp.NetMF, Version=1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\AMQPNetLite.1.1.0\lib\netmf43\Amqp.NetMF.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SPOT.Native" />
+    <Reference Include="System.Http" />
+    <Reference Include="System.IO" />
+    <Reference Include="System.Text.RegularExpressions" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Condition="EXISTS('$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets')" Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
+  <Import Condition="!EXISTS('$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets')" Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
