@@ -27,6 +27,11 @@ namespace ppatierno.AzureSBLite.Messaging
         internal MessagingFactory MessagingFactory { get; private set; }
 
         /// <summary>
+        /// Entity path
+        /// </summary>
+        public abstract string Path { get; }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="factory">Messaging factory instance</param>

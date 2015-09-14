@@ -27,7 +27,7 @@ namespace ppatierno.AzureSBLite.Messaging
         /// <summary>
         /// Entity path
         /// </summary>
-        public string Path { get; private set; }
+        public abstract string Path { get; }
 
         /// <summary>
         /// Messaging factory
@@ -48,11 +48,9 @@ namespace ppatierno.AzureSBLite.Messaging
         /// Constructor
         /// </summary>
         /// <param name="factory">Messaging factory</param>
-        /// <param name="path">Entity path</param>
-        internal MessageReceiver(MessagingFactory factory, string path)
+        internal MessageReceiver(MessagingFactory factory)
         {
             this.MessagingFactory = factory;
-            this.Path = path;
         }
 
         /// <summary>

@@ -14,12 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+using System;
+using ppatierno.AzureSBLite.Channel.Security;
+
 namespace ppatierno.AzureSBLite.Messaging.Amqp
 {
     /// <summary>
     /// Transport settings for AMQP connection
     /// </summary>
-    public sealed class AmqpTransportSettings
+    public sealed class AmqpTransportSettings : IServiceBusSecuritySettings
     {
         #region Constants ...
 
@@ -35,10 +38,10 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
         /// AMQP port
         /// </summary>
         internal int Port { get; set; }
-
+        
         /// <summary>
         /// Token provider
         /// </summary>
-        internal TokenProvider TokenProvider { get; set; }
+        TokenProvider IServiceBusSecuritySettings.TokenProvider { get; set; }
     }
 }

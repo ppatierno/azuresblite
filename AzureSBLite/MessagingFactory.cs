@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+using ppatierno.AzureSBLite.Channel.Security;
 using ppatierno.AzureSBLite.Messaging.Amqp;
 using System;
 
@@ -48,7 +49,7 @@ namespace ppatierno.AzureSBLite.Messaging
             {
                 settings.AmqpTransportSettings = new AmqpTransportSettings();
                 settings.AmqpTransportSettings.Port = AmqpTransportSettings.AMQPS_PORT;
-                settings.AmqpTransportSettings.TokenProvider = settings.TokenProvider;
+                ((IServiceBusSecuritySettings)settings.AmqpTransportSettings).TokenProvider = settings.TokenProvider;
             }
 
             factory = new AmqpMessagingFactory(address, settings.AmqpTransportSettings);
@@ -72,7 +73,7 @@ namespace ppatierno.AzureSBLite.Messaging
 
             factorySettings.AmqpTransportSettings = new AmqpTransportSettings();
             factorySettings.AmqpTransportSettings.Port = AmqpTransportSettings.AMQPS_PORT;
-            factorySettings.AmqpTransportSettings.TokenProvider = factorySettings.TokenProvider;
+            ((IServiceBusSecuritySettings)factorySettings.AmqpTransportSettings).TokenProvider = factorySettings.TokenProvider;
 
             return Create(address, factorySettings);
         }
@@ -199,7 +200,8 @@ namespace ppatierno.AzureSBLite.Messaging
         /// <summary>
         /// Open connection to the service bus
         /// </summary>
+        /// <param name="entity">Entity name (used only for CBS authentication if required)</param>
         /// <returns>Connection opened</returns>
-        internal abstract bool OpenConnection();
+        internal abstract bool Open(string entity);
     }
 }

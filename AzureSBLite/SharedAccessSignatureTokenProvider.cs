@@ -63,7 +63,8 @@ namespace ppatierno.AzureSBLite
 
         private static readonly long UtcReference = (new DateTime(1970, 1, 1, 0, 0, 0, 0)).Ticks;
 
-        public static string GetPublisherSharedAccessSignature(Uri endpoint, string entityPath, string publisher, string keyName, string key, TimeSpan tokenTimeToLive)
+
+        public static string GetSharedAccessSignature(string keyName, string sharedAccessKey, string resource, TimeSpan tokenTimeToLive)
         {
             // http://msdn.microsoft.com/en-us/library/azure/dn170477.aspx
             // the canonical Uri scheme is http because the token is not amqp specific
@@ -73,12 +74,10 @@ namespace ppatierno.AzureSBLite
             // needed in .Net Micro Framework to use standard RFC4648 Base64 encoding alphabet
             System.Convert.UseRFC4648Encoding = true;
 #endif
-            string requestUri = Fx.Format("http://{0}/{1}/Publishers/{2}", endpoint.Host, entityPath, publisher);
-
             string expiry = ((long)(DateTime.UtcNow - new DateTime(UtcReference, DateTimeKind.Utc) + tokenTimeToLive).TotalSeconds()).ToString();
-            string encodedUri = HttpUtility.UrlEncode(requestUri);
+            string encodedUri = HttpUtility.UrlEncode(resource);
 
-            byte[] hmac = SHA.computeHMAC_SHA256(Encoding.UTF8.GetBytes(key), Encoding.UTF8.GetBytes(encodedUri + "\n" + expiry));
+            byte[] hmac = SHA.computeHMAC_SHA256(Encoding.UTF8.GetBytes(sharedAccessKey), Encoding.UTF8.GetBytes(encodedUri + "\n" + expiry));
             string sig = Convert.ToBase64String(hmac);
 
             return Fx.Format(
@@ -87,6 +86,13 @@ namespace ppatierno.AzureSBLite
                 HttpUtility.UrlEncode(sig),
                 HttpUtility.UrlEncode(expiry),
                 HttpUtility.UrlEncode(keyName));
+        }
+
+        public static string GetPublisherSharedAccessSignature(Uri endpoint, string entityPath, string publisher, string keyName, string key, TimeSpan tokenTimeToLive)
+        {
+            string publisherPath = Fx.Format("http://{0}/{1}/Publishers/{2}", endpoint.Host, entityPath, publisher);
+
+            return GetSharedAccessSignature(keyName, key, publisherPath, tokenTimeToLive);
         }
     }
 }

@@ -15,6 +15,8 @@ limitations under the License.
 */
 
 using Amqp;
+using Amqp.Framing;
+using ppatierno.AzureSBLite.Channel.Security;
 using System;
 
 namespace ppatierno.AzureSBLite.Messaging.Amqp
@@ -29,11 +31,21 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
         /// </summary>
         internal Connection Connection { get; private set; }
 
-        // AMQP settings
-        internal AmqpTransportSettings TransportSettings { get; private set; }
+        internal AmqpTransportSettings TransportSettings
+        {
+            get { return this.settings; }
+        }
+
+        internal IServiceBusSecuritySettings ServiceBusSecuritySettings
+        {
+            get { return this.settings; }
+        }
 
         // base address
         private Address amqpAddress;
+
+        // AMQP settings
+        private readonly AmqpTransportSettings settings;
 
         /// <summary>
         /// Constructor
@@ -52,9 +64,9 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
         public AmqpMessagingFactory(Uri baseAddress, AmqpTransportSettings settings)
         {
             this.Address = baseAddress;
-            this.TransportSettings = settings;
+            this.settings = settings;
 
-            SharedAccessSignatureTokenProvider sasTokenProvider = (SharedAccessSignatureTokenProvider)this.TransportSettings.TokenProvider;
+            SharedAccessSignatureTokenProvider sasTokenProvider = (SharedAccessSignatureTokenProvider)this.ServiceBusSecuritySettings.TokenProvider;
             this.amqpAddress = new Address(this.Address.Host, this.TransportSettings.Port, sasTokenProvider.KeyName, sasTokenProvider.SharedAccessKey);
         }
 
@@ -113,16 +125,19 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
             return receiver;
         }
 
-        internal override bool OpenConnection()
+        internal override bool Open(string entity)
         {
             if (this.Connection == null)
             {
-                if (this.TransportSettings.TokenProvider.GetType() == typeof(SharedAccessSignatureTokenProvider))
+                if (this.ServiceBusSecuritySettings.TokenProvider.GetType() == typeof(SharedAccessSignatureTokenProvider))
                 {
-                    SharedAccessSignatureTokenProvider tokenProvider = (SharedAccessSignatureTokenProvider)this.TransportSettings.TokenProvider;
+                    SharedAccessSignatureTokenProvider tokenProvider = (SharedAccessSignatureTokenProvider)this.ServiceBusSecuritySettings.TokenProvider;
                     if ((tokenProvider.ShareAccessSignature != null) && (tokenProvider.ShareAccessSignature != string.Empty))
                     {
                         this.Connection = new Connection(this.amqpAddress, global::Amqp.Sasl.SaslProfile.External, null, null);
+
+                        // send CBS token for the entity
+                        return this.PutCbsToken(tokenProvider.ShareAccessSignature, entity);
                     }
                     else
                     {
@@ -145,5 +160,53 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
         }
 
         #endregion
+
+        /// <summary>
+        /// Send Claim Based Security (CBS) token
+        /// </summary>
+        /// <param name="shareAccessSignature">Shared access signature (token) to send</param>
+        /// <param name="entity">Entity name</param>
+        private bool PutCbsToken(string shareAccessSignature, string entity)
+        {
+            bool result = true;
+            Session session = new Session(this.Connection);
+
+            string cbsReplyToAddress = "cbs-reply-to";
+            var cbsSender = new SenderLink(session, "cbs-sender", "$cbs");
+            var cbsReceiver = new ReceiverLink(session, cbsReplyToAddress, "$cbs");
+
+            // construct the put-token message
+            var request = new Message(shareAccessSignature);
+            request.Properties = new Properties();
+            request.Properties.MessageId = Guid.NewGuid().ToString();
+            request.Properties.ReplyTo = cbsReplyToAddress;
+            request.ApplicationProperties = new ApplicationProperties();
+            request.ApplicationProperties["operation"] = "put-token";
+            request.ApplicationProperties["type"] = "servicebus.windows.net:sastoken";
+            request.ApplicationProperties["name"] = Fx.Format("amqp://{0}/{1}", this.Address.Host, entity);
+            cbsSender.Send(request);
+
+            // receive the response
+            var response = cbsReceiver.Receive();
+            if (response == null || response.Properties == null || response.ApplicationProperties == null)
+            {
+                result = false;
+            }
+            else
+            {
+                int statusCode = (int)response.ApplicationProperties["status-code"];
+                if (statusCode != (int)202 && statusCode != (int)200) // !Accepted && !OK
+                {
+                    result = false;
+                }
+            }
+
+            // the sender/receiver may be kept open for refreshing tokens
+            cbsSender.Close();
+            cbsReceiver.Close();
+            session.Close();
+
+            return result;
+        }
     }
 }

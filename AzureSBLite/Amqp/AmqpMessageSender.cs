@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+using System;
 using Amqp;
 using Amqp.Framing;
 
@@ -38,7 +39,7 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
         /// Construcotr
         /// </summary>
         /// <param name="factory">Messaging factory instance</param>
-        /// <param name="entity">Path to event hub entity</param>
+        /// <param name="entity">Entity path</param>
         internal AmqpMessageSender(AmqpMessagingFactory factory, string entity) 
             : base(factory)
         {
@@ -48,102 +49,44 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
 
         #region MessageSender ...
 
+        public override string Path
+        {
+            get
+            {
+                return this.entity;
+            }
+        }
+
         internal override void SendEventData(EventData data)
         {
-            if (this.factory.OpenConnection())
+            if (this.factory.Open(this.entity))
             {
-                bool canSend = true;
-
                 if (this.session == null)
                 {
-                    if (this.factory.TransportSettings.TokenProvider.GetType() == typeof(SharedAccessSignatureTokenProvider))
-                    {
-                        SharedAccessSignatureTokenProvider tokenProvider = (SharedAccessSignatureTokenProvider)this.factory.TransportSettings.TokenProvider;
-
-                        if ((tokenProvider.ShareAccessSignature != null) && (tokenProvider.ShareAccessSignature != string.Empty))
-                        {
-                            canSend = PutCbsToken(tokenProvider.ShareAccessSignature);
-                        }
-                    }
-
-                    if (canSend)
-                    {
-                        this.session = new Session(this.factory.Connection);
-                        this.link = new SenderLink(this.session, "amqp-send-link " + this.entity, this.entity);
-                    }
+                    this.session = new Session(this.factory.Connection);
+                    this.link = new SenderLink(this.session, "amqp-send-link " + this.entity, this.entity);   
                 }
 
-                if (canSend)
-                {
-                    Message message = data.ToAmqpMessage();
-                    this.link.Send(message);
-                }
+                Message message = data.ToAmqpMessage();
+                this.link.Send(message);
             }
         }
 
         public override void Send(BrokeredMessage brokeredMessage)
         {
-            if (this.factory.OpenConnection())
+            if (this.factory.Open(this.entity))
             {
                 if (this.session == null)
                 {
                     this.session = new Session(this.factory.Connection);
-                    this.link = new SenderLink(this.session, "amqp-send-link " + this.entity, entity);
+                    this.link = new SenderLink(this.session, "amqp-send-link " + this.entity, this.entity);
                 }
 
                 Message message = brokeredMessage.ToAmqpMessage();
                 this.link.Send(message);
             }
         }
-
-        /// <summary>
-        /// Send Claim Based Security (CBS) token
-        /// </summary>
-        /// <param name="shareAccessSignature">Shared access signature (token) to send</param>
-        private bool PutCbsToken(string shareAccessSignature)
-        {
-            bool result = true;
-            Session session = new Session(this.factory.Connection);
-
-            string cbsClientAddress = "cbs-receiver/123";
-            var cbsSender = new SenderLink(session, "cbs-sender", "$cbs");
-            var cbsReceiver = new ReceiverLink(session, cbsClientAddress, "$cbs");
-
-            // construct the put-token message
-            var request = new Message(shareAccessSignature);
-            request.Properties = new Properties();
-            request.Properties.MessageId = "1";
-            request.Properties.ReplyTo = cbsClientAddress;
-            request.ApplicationProperties = new ApplicationProperties();
-            request.ApplicationProperties["operation"] = "put-token";
-            request.ApplicationProperties["type"] = "servicebus.windows.net:sastoken";
-            request.ApplicationProperties["name"] = Fx.Format("amqp://{0}/{1}", this.factory.Address.Host, this.entity);
-            cbsSender.Send(request);
-
-            // receive the response
-            var response = cbsReceiver.Receive();
-            if (response == null || response.Properties == null || response.ApplicationProperties == null)
-            {
-                result = false;
-            }
-            else
-            {
-                int statusCode = (int)response.ApplicationProperties["status-code"];
-                //if (statusCode != (int)HttpStatusCode.Accepted && statusCode != (int)HttpStatusCode.OK)
-                if (statusCode != (int)202 && statusCode != (int)200)
-                {
-                    result = false;
-                }
-            }
-
-            // the sender/receiver may be kept open for refreshing tokens
-            cbsSender.Close();
-            cbsReceiver.Close();
-            session.Close();
-
-            return result;
-        }
-
+        
         #endregion
 
         #region ClientEntity ...

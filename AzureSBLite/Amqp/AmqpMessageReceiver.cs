@@ -40,13 +40,16 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
         // collection with peeked message to complete/abandon with "lock token"
         private IDictionary peekedMessages;
 
+        // entity to connect (AMQP node)
+        private string entity;
+
         /// <summary>
         /// Construcotr
         /// </summary>
         /// <param name="factory">Messaging factory instance</param>
-        /// <param name="path">Entity path</param>
-        internal AmqpMessageReceiver(AmqpMessagingFactory factory, string path) 
-            : this(factory, path, ReceiveMode.PeekLock)
+        /// <param name="entity">Entity path</param>
+        internal AmqpMessageReceiver(AmqpMessagingFactory factory, string entity) 
+            : this(factory, entity, ReceiveMode.PeekLock)
         {
 
         }
@@ -55,12 +58,13 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
         /// Construcotr
         /// </summary>
         /// <param name="factory">Messaging factory instance</param>
-        /// <param name="path">Entity path</param>
+        /// <param name="entity">Entity path</param>
         /// <param name="receiveMode">Receive mode</param>
-        internal AmqpMessageReceiver(AmqpMessagingFactory factory, string path, ReceiveMode receiveMode)
-            : base(factory, path)
+        internal AmqpMessageReceiver(AmqpMessagingFactory factory, string entity, ReceiveMode receiveMode)
+            : base(factory)
         {
             this.factory = factory;
+            this.entity = entity;
             this.receiveMode = receiveMode;
 
             this.peekedMessages = new Hashtable();
@@ -68,16 +72,24 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
 
         #region MessageReceiver ...
 
+        public override string Path
+        {
+            get
+            {
+                return this.entity;
+            }
+        }
+
         internal override EventData ReceiveEventData()
         {
-            if (this.factory.OpenConnection())
+            if (this.factory.Open(this.entity))
             {
                 if (this.session == null)
                 {
                     this.session = new Session(this.factory.Connection);
                     if ((this.StartOffset == null) || (this.StartOffset == string.Empty))
                     {
-                        this.link = new ReceiverLink(this.session, "amqp-receive-link " + this.Path, this.Path);
+                        this.link = new ReceiverLink(this.session, "amqp-receive-link " + this.entity, this.entity);
                     }
                     else
                     {
@@ -87,10 +99,10 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
                                         new Symbol("apache.org:selector-filter:string"),
                                         "amqp.annotation.x-opt-offset > '" + this.StartOffset + "'"));
 
-                        this.link = new ReceiverLink(this.session, "amqp-receive-link " + this.Path,
+                        this.link = new ReceiverLink(this.session, "amqp-receive-link " + this.entity,
                                         new global::Amqp.Framing.Source()
                                         {
-                                            Address = this.Path,
+                                            Address = this.entity,
                                             FilterSet = filters
                                         }, null);
                     }
@@ -112,12 +124,12 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
 
         public override BrokeredMessage Receive()
         {
-            if (this.factory.OpenConnection())
+            if (this.factory.Open(this.entity))
             {
                 if (this.session == null)
                 {
                     this.session = new Session(this.factory.Connection);
-                    this.link = new ReceiverLink(this.session, "amqp-receive-link " + this.Path, this.Path);
+                    this.link = new ReceiverLink(this.session, "amqp-receive-link " + this.entity, this.entity);
                 }
 
                 this.link.SetCredit(1, false);
@@ -172,12 +184,12 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
 
         public override void OnMessage(OnMessageAction callback, OnMessageOptions options)
         {
-            if (this.factory.OpenConnection())
+            if (this.factory.Open(this.entity))
             {
                 if (this.session == null)
                 {
                     this.session = new Session(this.factory.Connection);
-                    this.link = new ReceiverLink(this.session, "amqp-receive-link " + this.Path, this.Path);
+                    this.link = new ReceiverLink(this.session, "amqp-receive-link " + this.entity, this.entity);
                 }
 
                 // start the message pump

@@ -63,6 +63,7 @@
     <Compile Include="..\EventHubReceiver.cs" />
     <Compile Include="..\EventHubSender.cs" />
     <Compile Include="..\IMessageClientEntity.cs" />
+    <Compile Include="..\IServiceBusSecuritySettings.cs" />
     <Compile Include="..\MessageReceiver.cs" />
     <Compile Include="..\MessageSender.cs" />
     <Compile Include="..\MessagingFactory.cs" />

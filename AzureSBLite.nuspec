@@ -2,21 +2,21 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>AzureSBLite</id>
-        <version>1.1.0.0</version>
+        <version>1.2.0.0</version>
         <title>Azure SB Lite : Azure Service Bus client library</title>
         <authors>Paolo Patierno</authors>
         <owners>Paolo Patierno</owners>
-        <licenseUrl>http://amqpnetlite.codeplex.com/license</licenseUrl>
-        <projectUrl>http://azuresblite.codeplex.com/</projectUrl>
-        <iconUrl>http://download-codeplex.sec.s-msft.com/Download?ProjectName=azuresblite&amp;DownloadId=1455500&amp;Build=21028</iconUrl>
+        <licenseUrl>https://github.com/ppatierno/azuresblite/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/ppatierno/azuresblite</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/ppatierno/azuresblite/master/images/azuresblite.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>This project has the purpose to provide all the same APIs to access the Microsoft Azure Service Bus (Queues, Topics/Subscriptions, Event Hubs) you have on .Net Framework but for .Net Micro Framework, .Net Compact Framework 3.9, Mono (on Linux) and WinRT (Windows 8.1 and Windows 10) using AMQP protocol.</description>
-        <summary>This project has the purpose to provide all the same APIs to access the Microsoft Azure Service Bus (Queues, Topics/Subscriptions, Event Hubs) from all .Net platforms (full, compact, micro) and WinRT.</summary>
-        <releaseNotes>First release</releaseNotes>
+        <description>This project has the purpose to provide all the same APIs to access the Microsoft Azure Service Bus (Queues, Topics/Subscriptions, Event Hubs) you have on .Net Framework but also for .Net Micro Framework, .Net Compact Framework 3.9, Mono (on Linux) and WinRT (Windows 8.1 and Windows 10) using AMQP protocol.</description>
+        <summary>This project has the purpose to provide all the same APIs to access the Microsoft Azure Service Bus (Queues, Topics/Subscriptions, Event Hubs) from all .Net platforms (full, compact, micro), WinRT and Mono.</summary>
+        <releaseNotes>Added support for SAS token to access (send/receive) to all entities (Queues, Topics/Subscriptions, Event Hubs)</releaseNotes>
         <copyright>Paolo Patierno Copyright 2015</copyright>
-        <tags>Azure ServiceBus AMQP Micro-Framework netmf netcf embedded iot winrt Windows cloud</tags>
+        <tags>Azure ServiceBus AMQP Micro-Framework netmf netcf embedded iot winrt Windows cloud event hubs queues topics subscrptions messaging</tags>
         <dependencies>
-            <dependency id="AMQPNetLite" version="1.1.0" />
+            <dependency id="AMQPNetLite" version="1.1.2" />
         </dependencies>
     </metadata>
     <files>
