@@ -24,11 +24,11 @@
         <file src="bin\Release\AzureSBLite.Net\Amqp.Net.pdb" target="lib\net45\Amqp.Net.pdb" />
         <file src="bin\Release\AzureSBLite.Net\AzureSBLite.Net.dll" target="lib\net45\AzureSBLite.Net.dll" />
         <file src="bin\Release\AzureSBLite.Net\AzureSBLite.Net.pdb" target="lib\net45\AzureSBLite.Net.pdb" />
-        <file src="bin\Release\AzureSBLite.NetCf39\Amqp.NetCF39.dll" target="lib\netcf39\Amqp.NetCF39.dll" />
-        <file src="bin\Release\AzureSBLite.NetCf39\Amqp.NetCF39.pdb" target="lib\netcf39\Amqp.NetCF39.pdb" />
-        <file src="bin\Release\AzureSBLite.NetCf39\AzureSBLite.NetCf39.dll" target="lib\netcf39\AzureSBLite.NetCf39.dll" />
-        <file src="bin\Release\AzureSBLite.NetCf39\AzureSBLite.NetCf39.pdb" target="lib\netcf39\AzureSBLite.NetCf39.pdb" />
-        <file src="bin\Release\AzureSBLite.NetCf39\DeployFileList.txt" target="lib\netcf39\DeployFileList.txt" />
+        <file src="bin\Release\AzureSBLite.NetCf39\Amqp.NetCF39.dll" target="lib\net39-cf\Amqp.NetCF39.dll" />
+        <file src="bin\Release\AzureSBLite.NetCf39\Amqp.NetCF39.pdb" target="lib\net39-cf\Amqp.NetCF39.pdb" />
+        <file src="bin\Release\AzureSBLite.NetCf39\AzureSBLite.NetCf39.dll" target="lib\net39-cf\AzureSBLite.NetCf39.dll" />
+        <file src="bin\Release\AzureSBLite.NetCf39\AzureSBLite.NetCf39.pdb" target="lib\net39-cf\AzureSBLite.NetCf39.pdb" />
+        <file src="bin\Release\AzureSBLite.NetCf39\DeployFileList.txt" target="lib\net39-cf\DeployFileList.txt" />
         <file src="bin\Release\AzureSBLite.NetMf43\be\Amqp.NetMF.pdbx" target="lib\netmf43\be\Amqp.NetMF.pdbx" />
         <file src="bin\Release\AzureSBLite.NetMf43\be\Amqp.NetMF.pe" target="lib\netmf43\be\Amqp.NetMF.pe" />
         <file src="bin\Release\AzureSBLite.NetMf43\be\AzureSBLite.NetMf.pdb" target="lib\netmf43\be\AzureSBLite.NetMf.pdb" />
