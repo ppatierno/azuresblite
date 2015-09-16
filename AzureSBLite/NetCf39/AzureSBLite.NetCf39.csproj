@@ -34,9 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Amqp.NetCF39, Version=1.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Amqp.NetCF39, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AMQPNetLite.1.1.0\lib\netcf39\Amqp.NetCF39.dll</HintPath>
+      <HintPath>..\..\packages\AMQPNetLite.1.1.2\lib\netcf39\Amqp.NetCF39.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

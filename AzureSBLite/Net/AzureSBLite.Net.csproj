@@ -30,8 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Amqp.Net">
-      <HintPath>..\..\packages\AMQPNetLite.1.1.0\lib\net45\Amqp.Net.dll</HintPath>
+    <Reference Include="Amqp.Net, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\AMQPNetLite.1.1.2\lib\net45\Amqp.Net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

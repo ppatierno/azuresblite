@@ -140,14 +140,15 @@
     <Compile Include="Hashtable.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Amqp.Store">
-      <HintPath>..\..\packages\AMQPNetLite.1.1.0\lib\windows8\Amqp.Store.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Amqp.Store, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\AMQPNetLite.1.1.2\lib\windows8\Amqp.Store.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

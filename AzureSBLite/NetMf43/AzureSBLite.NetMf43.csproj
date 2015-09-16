@@ -67,9 +67,9 @@
     <Compile Include="..\Utility\TimeSpanExtension.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Amqp.NetMF, Version=1.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Amqp.NetMF, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AMQPNetLite.1.1.0\lib\netmf43\Amqp.NetMF.dll</HintPath>
+      <HintPath>..\..\packages\AMQPNetLite.1.1.2\lib\netmf43\Amqp.NetMF.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SPOT.Native" />
     <Reference Include="System.Http" />
