@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+using System;
 namespace ppatierno.AzureSBLite.Messaging
 {
     /// <summary>
@@ -42,6 +43,11 @@ namespace ppatierno.AzureSBLite.Messaging
         public string StartingOffset { get; private set; }
 
         /// <summary>
+        /// Starting date/time offset at which to start receiving messages
+        /// </summary>
+        public DateTime StartingDateTimeUtc { get; private set; }
+
+        /// <summary>
         /// Internal messaging factory
         /// </summary>
         internal MessagingFactory MessagingFactory { get; private set; }
@@ -58,6 +64,23 @@ namespace ppatierno.AzureSBLite.Messaging
         /// <param name="path">Path to the event hub</param>
         /// <param name="consumerName">Consumer name</param>
         /// <param name="partitionId">ID for a logical partition of an event hub</param>
+        /// <param name="startingDateTimeUtc">Starting date/time offset at which to start receiving messages</param>
+        internal EventHubReceiver(MessagingFactory factory, string path, string consumerName, string partitionId, DateTime startingDateTimeUtc)
+        {
+            this.MessagingFactory = factory;
+            this.Path = path;
+            this.Name = consumerName;
+            this.PartitionId = partitionId;
+            this.StartingDateTimeUtc = startingDateTimeUtc;
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="factory">Messaging factory</param>
+        /// <param name="path">Path to the event hub</param>
+        /// <param name="consumerName">Consumer name</param>
+        /// <param name="partitionId">ID for a logical partition of an event hub</param>
         /// <param name="startingOffset">Starting offset at which to start receiving messages</param>
         internal EventHubReceiver(MessagingFactory factory, string path, string consumerName, string partitionId, string startingOffset)
         {
@@ -66,6 +89,9 @@ namespace ppatierno.AzureSBLite.Messaging
             this.Name = consumerName;
             this.PartitionId = partitionId;
             this.StartingOffset = startingOffset;
+            // note : the MaxValue is the default value and it means NO value (as null)
+            //        DateTime? nullable types aren't supported in .Net Micro Framework
+            this.StartingDateTimeUtc = DateTime.MaxValue;
         }
 
         /// <summary>
@@ -85,7 +111,7 @@ namespace ppatierno.AzureSBLite.Messaging
         {
             if (this.Receiver == null)
             {
-                this.Receiver = this.MessagingFactory.CreateReceiver(this.Path, this.Name, this.PartitionId, this.StartingOffset);
+                this.Receiver = this.MessagingFactory.CreateReceiver(this.Path, this.Name, this.PartitionId, this.StartingOffset, this.StartingDateTimeUtc);
             }
         }
 

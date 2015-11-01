@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 using Amqp;
+using System;
 
 namespace ppatierno.AzureSBLite.Messaging
 {
@@ -77,6 +78,17 @@ namespace ppatierno.AzureSBLite.Messaging
         public EventHubReceiver CreateReceiver(string partitionId, string startingOffset)
         {
             return new EventHubReceiver(this.MessagingFactory, Fx.Format("{0}/ConsumerGroups/{1}/Partitions/{2}", this.EventHubPath, this.GroupName, partitionId), this.GroupName, partitionId, startingOffset);
+        }
+
+        /// <summary>
+        /// Create an event hub receiver for a specified partition from a starting date/time offset
+        /// </summary>
+        /// <param name="partitionId">ID of the partition</param>
+        /// <param name="startingDateTimeUtc">Starting date/time offset at which to start receiving messages</param>
+        /// <returns>Instance of EventHubReceiver class</returns>
+        public EventHubReceiver CreateReceiver(string partitionId, DateTime startingDateTimeUtc)
+        {
+            return new EventHubReceiver(this.MessagingFactory, Fx.Format("{0}/ConsumerGroups/{1}/Partitions/{2}", this.EventHubPath, this.GroupName, partitionId), this.GroupName, partitionId, startingDateTimeUtc);
         }
     }
 }

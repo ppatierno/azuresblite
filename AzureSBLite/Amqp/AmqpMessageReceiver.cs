@@ -27,6 +27,8 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
     /// </summary>
     internal sealed class AmqpMessageReceiver : MessageReceiver
     {
+        private static readonly long StartOfEpoch = (new DateTime(1970, 1, 1, 0, 0, 0, 0)).Ticks;
+
         // AMQP messaging factory
         private AmqpMessagingFactory factory;
 
@@ -87,17 +89,33 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
                 if (this.session == null)
                 {
                     this.session = new Session(this.factory.Connection);
-                    if ((this.StartOffset == null) || (this.StartOffset == string.Empty))
+                    // no offsets are set
+                    if (((this.StartOffset == null) || (this.StartOffset == string.Empty)) && (this.ReceiverStartTime == DateTime.MaxValue))
                     {
                         this.link = new ReceiverLink(this.session, "amqp-receive-link " + this.entity, this.entity);
                     }
+                    // existing offsets to set as filters
                     else
                     {
                         Map filters = new Map();
-                        filters.Add(new Symbol("apache.org:selector-filter:string"),
-                                    new DescribedValue(
-                                        new Symbol("apache.org:selector-filter:string"),
-                                        "amqp.annotation.x-opt-offset > '" + this.StartOffset + "'"));
+
+                        if ((this.StartOffset != null) && (this.StartOffset != string.Empty))
+                        {
+                            filters.Add(new Symbol("apache.org:selector-filter:string"),
+                                        new DescribedValue(
+                                            new Symbol("apache.org:selector-filter:string"),
+                                            "amqp.annotation.x-opt-offset > '" + this.StartOffset + "'"));
+                        }
+
+                        if (this.ReceiverStartTime != DateTime.MaxValue)
+                        {
+                            string totalMilliseconds = ((long)(this.ReceiverStartTime.ToUniversalTime() - new DateTime(StartOfEpoch, DateTimeKind.Utc)).TotalMilliseconds()).ToString();
+
+                            filters.Add(new Symbol("apache.org:selector-filter:string"),
+                                        new DescribedValue(
+                                            new Symbol("apache.org:selector-filter:string"),
+                                            "amqp.annotation.x-opt-enqueuedtimeutc > " + totalMilliseconds + ""));
+                        }
 
                         this.link = new ReceiverLink(this.session, "amqp-receive-link " + this.entity,
                                         new global::Amqp.Framing.Source()

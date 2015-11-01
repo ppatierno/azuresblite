@@ -117,11 +117,12 @@ namespace ppatierno.AzureSBLite.Messaging.Amqp
             return new AmqpSubscriptionClient(this, topicPath, name, receiveMode);
         }
 
-        public override MessageReceiver CreateReceiver(string path, string consumerGroupName, string partitionId, string startingOffset)
+        internal override MessageReceiver CreateReceiver(string path, string consumerGroupName, string partitionId, string startingOffset, DateTime startingDateTimeUtc)
         {
             AmqpMessageReceiver receiver = new AmqpMessageReceiver(this, path);
             receiver.PartitionId = partitionId;
             receiver.StartOffset = startingOffset;
+            receiver.ReceiverStartTime = startingDateTimeUtc;
             return receiver;
         }
 

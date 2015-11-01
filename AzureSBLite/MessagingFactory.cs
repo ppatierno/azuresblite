@@ -194,8 +194,9 @@ namespace ppatierno.AzureSBLite.Messaging
         /// <param name="consumerGroupName">Consumer group name</param>
         /// <param name="partitionId">ID for a logical partition</param>
         /// <param name="startingOffset">Starting offset at which to start receiving messages</param>
+        /// <param name="startingDateTimeUtc">Starting date/time offset at which to start receiving messages</param>
         /// <returns>Message receiver instance</returns>
-        public abstract MessageReceiver CreateReceiver(string path, string consumerGroupName, string partitionId, string startingOffset);
+        internal abstract MessageReceiver CreateReceiver(string path, string consumerGroupName, string partitionId, string startingOffset, DateTime startingDateTimeUtc);
         
         /// <summary>
         /// Open connection to the service bus

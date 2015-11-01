@@ -45,12 +45,20 @@ namespace ppatierno.AzureSBLite.Messaging
         internal string StartOffset { get; set; }
 
         /// <summary>
+        /// DateTime offset from which to start receiving messages
+        /// </summary>
+        internal DateTime ReceiverStartTime { get; set; }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="factory">Messaging factory</param>
         internal MessageReceiver(MessagingFactory factory)
         {
             this.MessagingFactory = factory;
+            // note : the MaxValue is the default value and it means NO value (as null)
+            //        DateTime? nullable types aren't supported in .Net Micro Framework
+            this.ReceiverStartTime = DateTime.MaxValue;
         }
 
         /// <summary>
