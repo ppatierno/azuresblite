@@ -1,0 +1,29 @@
+{
+  "version": "1.1.5",
+  "description": "AzureSBLite",
+  "authors": [ "Stephan" ],
+  "tags": [ "AzureSbLite" ],
+  "projectUrl": "https://github.com/Azure/amqpnetlite",
+  "licenseUrl": "https://github.com/Azure/amqpnetlite/blob/master/license.txt",
+
+  "compile": [
+    "../../*.cs",
+    "../../amqp/*.cs",
+    "../../utility/*.cs"
+  ],
+
+  "frameworks": {
+    "dnxcore50": {
+      "compilationOptions": {
+        "allowUnsafe": true,
+        "define": [ "TRACE", "DOTNET" ]
+      },
+      "dependencies": {
+        "System.Text.RegularExpressions": "4.0.10-beta-23019"
+      }
+    }
+  },
+  "dependencies": {
+    "Amqp.DotNet": "1.1.5"
+  }
+}
