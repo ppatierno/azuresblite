@@ -1,0 +1,29 @@
+{
+  "version": "1.3.0",
+  "description": "AzureSBLite",
+  "authors": [ "Paolo Patierno" ],
+  "tags": [ "AzureSbLite" ],
+  "projectUrl": "https://github.com/ppatierno/azuresblite",
+  "licenseUrl": "https://github.com/ppatierno/azuresblite/blob/master/LICENSE",
+
+  "compile": [
+    "../../*.cs",
+    "../../amqp/*.cs",
+    "../../utility/*.cs"
+  ],
+
+  "frameworks": {
+    "dnxcore50": {
+      "compilationOptions": {
+        "allowUnsafe": true,
+        "define": [ "TRACE", "DOTNET" ]
+      },
+      "dependencies": {
+        "System.Text.RegularExpressions": "4.0.10-beta-23019"
+      }
+    }
+  },
+  "dependencies": {
+    "Amqp.DotNet": "1.1.5"
+  }
+}
