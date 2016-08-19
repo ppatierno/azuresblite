@@ -1,0 +1,41 @@
+{
+  "authors": [ "Paolo Patierno" ],
+
+  "description": "This project has the purpose to provide all the same APIs to access the Microsoft Azure Service Bus (Queues, Topics/Subscriptions, Event Hubs) you have on .Net Framework but also for .Net Micro Framework, .Net Compact Framework 3.9, Mono (on Linux) and WinRT (Windows 8.1 and Windows 10) using AMQP protocol.",
+
+  "frameworks": {
+    "netstandard1.6": {
+      "buildOptions": {
+        "allowUnsafe": true,
+        "define": [ "TRACE", "DOTNET" ],
+        "compile": [
+          "../../*.cs",
+          "../../amqp/*.cs",
+          "../../utility/*.cs"
+        ]
+      },
+      "imports": "dnxcore50",
+      "dependencies": {
+        "AMQPNetLite": "1.2.0",
+        "System.Text.RegularExpressions": "4.1.0"
+      }
+    }
+  },
+  
+  "packOptions": {
+    "iconUrl": "https://raw.githubusercontent.com/ppatierno/azuresblite/master/images/azuresblite.png",
+    "requireLicenseAcceptance": true,
+    "summary": "This project has the purpose to provide all the same APIs to access the Microsoft Azure Service Bus (Queues, Topics/Subscriptions, Event Hubs) from all .Net platforms (full, compact, micro), WinRT and Mono.",
+    "tags": [ "Azure", "ServiceBus", "AMQP", "Micro-Framework", "netmf", "netcf", "embedded", "iot", "winrt", "Windows", "cloud", "event", "hubs", "queues", "topics", "subscrptions", "messaging" ],
+    "projectUrl": "https://github.com/ppatierno/azuresblite",
+    "licenseUrl": "https://github.com/ppatierno/azuresblite/blob/master/LICENSE",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/ppatierno/azuresblite.git"
+    },
+    "files": {
+      "include": "content/**"
+    }
+  },
+  "version": "1.3.0"
+}
