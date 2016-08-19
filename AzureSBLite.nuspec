@@ -1,53 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
-    <metadata>
-        <id>AzureSBLite</id>
-        <version>1.3.0.0</version>
-        <title>Azure SB Lite : Azure Service Bus client library</title>
-        <authors>Paolo Patierno</authors>
-        <owners>Paolo Patierno</owners>
-        <licenseUrl>https://github.com/ppatierno/azuresblite/blob/master/LICENSE</licenseUrl>
-        <projectUrl>https://github.com/ppatierno/azuresblite</projectUrl>
-        <iconUrl>https://raw.githubusercontent.com/ppatierno/azuresblite/master/images/azuresblite.png</iconUrl>
-        <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>This project has the purpose to provide all the same APIs to access the Microsoft Azure Service Bus (Queues, Topics/Subscriptions, Event Hubs) you have on .Net Framework but also for .Net Micro Framework, .Net Compact Framework 3.9, Mono (on Linux) and WinRT (Windows 8.1 and Windows 10) using AMQP protocol.</description>
-        <summary>This project has the purpose to provide all the same APIs to access the Microsoft Azure Service Bus (Queues, Topics/Subscriptions, Event Hubs) from all .Net platforms (full, compact, micro), WinRT and Mono.</summary>
-        <releaseNotes>Added receiving from date/time offset for Event Hubs</releaseNotes>
-        <copyright>Paolo Patierno Copyright 2015</copyright>
-        <tags>Azure ServiceBus AMQP Micro-Framework netmf netcf embedded iot winrt Windows cloud event hubs queues topics subscrptions messaging</tags>
-        <dependencies>
-            <dependency id="AMQPNetLite" version="1.1.2" />
-        </dependencies>
-    </metadata>
-    <files>
-        <file src="bin\Release\AzureSBLite.Net\Amqp.Net.dll" target="lib\net45\Amqp.Net.dll" />
-        <file src="bin\Release\AzureSBLite.Net\Amqp.Net.pdb" target="lib\net45\Amqp.Net.pdb" />
-        <file src="bin\Release\AzureSBLite.Net\AzureSBLite.Net.dll" target="lib\net45\AzureSBLite.Net.dll" />
-        <file src="bin\Release\AzureSBLite.Net\AzureSBLite.Net.pdb" target="lib\net45\AzureSBLite.Net.pdb" />
-        <file src="bin\Release\AzureSBLite.NetCf39\Amqp.NetCF39.dll" target="lib\net39-cf\Amqp.NetCF39.dll" />
-        <file src="bin\Release\AzureSBLite.NetCf39\Amqp.NetCF39.pdb" target="lib\net39-cf\Amqp.NetCF39.pdb" />
-        <file src="bin\Release\AzureSBLite.NetCf39\AzureSBLite.NetCf39.dll" target="lib\net39-cf\AzureSBLite.NetCf39.dll" />
-        <file src="bin\Release\AzureSBLite.NetCf39\AzureSBLite.NetCf39.pdb" target="lib\net39-cf\AzureSBLite.NetCf39.pdb" />
-        <file src="bin\Release\AzureSBLite.NetCf39\DeployFileList.txt" target="lib\net39-cf\DeployFileList.txt" />
-        <file src="bin\Release\AzureSBLite.NetMf43\be\Amqp.NetMF.pdbx" target="lib\netmf43\be\Amqp.NetMF.pdbx" />
-        <file src="bin\Release\AzureSBLite.NetMf43\be\Amqp.NetMF.pe" target="lib\netmf43\be\Amqp.NetMF.pe" />
-        <file src="bin\Release\AzureSBLite.NetMf43\be\AzureSBLite.NetMf.pdb" target="lib\netmf43\be\AzureSBLite.NetMf.pdb" />
-        <file src="bin\Release\AzureSBLite.NetMf43\be\AzureSBLite.NetMf.pdbx" target="lib\netmf43\be\AzureSBLite.NetMf.pdbx" />
-        <file src="bin\Release\AzureSBLite.NetMf43\be\AzureSBLite.NetMf.pe" target="lib\netmf43\be\AzureSBLite.NetMf.pe" />
-        <file src="bin\Release\AzureSBLite.NetMf43\le\Amqp.NetMF.pdbx" target="lib\netmf43\le\Amqp.NetMF.pdbx" />
-        <file src="bin\Release\AzureSBLite.NetMf43\le\Amqp.NetMF.pe" target="lib\netmf43\le\Amqp.NetMF.pe" />
-        <file src="bin\Release\AzureSBLite.NetMf43\le\AzureSBLite.NetMf.pdb" target="lib\netmf43\le\AzureSBLite.NetMf.pdb" />
-        <file src="bin\Release\AzureSBLite.NetMf43\le\AzureSBLite.NetMf.pdbx" target="lib\netmf43\le\AzureSBLite.NetMf.pdbx" />
-        <file src="bin\Release\AzureSBLite.NetMf43\le\AzureSBLite.NetMf.pe" target="lib\netmf43\le\AzureSBLite.NetMf.pe" />
-        <file src="bin\Release\AzureSBLite.NetMf43\Amqp.NetMF.dll" target="lib\netmf43\Amqp.NetMF.dll" />
-        <file src="bin\Release\AzureSBLite.NetMf43\Amqp.NetMF.pdb" target="lib\netmf43\Amqp.NetMF.pdb" />
-        <file src="bin\Release\AzureSBLite.NetMf43\AzureSBLite.NetMf.dll" target="lib\netmf43\AzureSBLite.NetMf.dll" />
-        <file src="bin\Release\AzureSBLite.NetMf43\AzureSBLite.NetMf.pdb" target="lib\netmf43\AzureSBLite.NetMf.pdb" />
-        <file src="bin\Release\AzureSBLite.WinRT\Amqp.Store.dll" target="lib\windows81\Amqp.Store.dll" />
-        <file src="bin\Release\AzureSBLite.WinRT\Amqp.Store.pdb" target="lib\windows81\Amqp.Store.pdb" />
-        <file src="bin\Release\AzureSBLite.WinRT\Amqp.Store.pri" target="lib\windows81\Amqp.Store.pri" />
-        <file src="bin\Release\AzureSBLite.WinRT\AzureSBLite.WinRT.dll" target="lib\windows81\AzureSBLite.WinRT.dll" />
-        <file src="bin\Release\AzureSBLite.WinRT\AzureSBLite.WinRT.pdb" target="lib\windows81\AzureSBLite.WinRT.pdb" />
-        <file src="bin\Release\AzureSBLite.WinRT\AzureSBLite.WinRT.pri" target="lib\windows81\AzureSBLite.WinRT.pri" />
-    </files>
+  <metadata>
+    <id>AzureSBLite</id>
+    <version>1.3.0.0</version>
+    <title>Azure SB Lite : Azure Service Bus client library</title>
+    <authors>Paolo Patierno</authors>
+    <owners>Paolo Patierno</owners>
+    <licenseUrl>https://github.com/ppatierno/azuresblite/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/ppatierno/azuresblite</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/ppatierno/azuresblite/master/images/azuresblite.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This project has the purpose to provide all the same APIs to access the Microsoft Azure Service Bus (Queues, Topics/Subscriptions, Event Hubs) you have on .Net Framework but also for .Net Micro Framework, .Net Compact Framework 3.9, Mono (on Linux) and WinRT (Windows 8.1 and Windows 10) using AMQP protocol.</description>
+    <summary>This project has the purpose to provide all the same APIs to access the Microsoft Azure Service Bus (Queues, Topics/Subscriptions, Event Hubs) from all .Net platforms (full, compact, micro), WinRT and Mono.</summary>
+    <releaseNotes>Added receiving from date/time offset for Event Hubs</releaseNotes>
+    <copyright>Paolo Patierno Copyright 2015</copyright>
+    <tags>Azure ServiceBus AMQP Micro-Framework netmf netcf embedded iot winrt Windows cloud event hubs queues topics subscrptions messaging</tags>
+    <dependencies>
+      <dependency id="AMQPNetLite" version="1.1.2" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\AzureSBLite.Net\Amqp.Net.dll" target="lib\net45\Amqp.Net.dll" />
+    <file src="bin\Release\AzureSBLite.Net\Amqp.Net.pdb" target="lib\net45\Amqp.Net.pdb" />
+    <file src="bin\Release\AzureSBLite.Net\AzureSBLite.Net.dll" target="lib\net45\AzureSBLite.Net.dll" />
+    <file src="bin\Release\AzureSBLite.Net\AzureSBLite.Net.pdb" target="lib\net45\AzureSBLite.Net.pdb" />
+    <file src="bin\Release\AzureSBLite.NetCf39\Amqp.NetCF39.dll" target="lib\net39-cf\Amqp.NetCF39.dll" />
+    <file src="bin\Release\AzureSBLite.NetCf39\Amqp.NetCF39.pdb" target="lib\net39-cf\Amqp.NetCF39.pdb" />
+    <file src="bin\Release\AzureSBLite.NetCf39\AzureSBLite.NetCf39.dll" target="lib\net39-cf\AzureSBLite.NetCf39.dll" />
+    <file src="bin\Release\AzureSBLite.NetCf39\AzureSBLite.NetCf39.pdb" target="lib\net39-cf\AzureSBLite.NetCf39.pdb" />
+    <file src="bin\Release\AzureSBLite.NetCf39\DeployFileList.txt" target="lib\net39-cf\DeployFileList.txt" />
+    <file src="bin\Release\AzureSBLite.NetMf43\be\Amqp.NetMF.pdbx" target="lib\netmf43\be\Amqp.NetMF.pdbx" />
+    <file src="bin\Release\AzureSBLite.NetMf43\be\Amqp.NetMF.pe" target="lib\netmf43\be\Amqp.NetMF.pe" />
+    <file src="bin\Release\AzureSBLite.NetMf43\be\AzureSBLite.NetMf.pdb" target="lib\netmf43\be\AzureSBLite.NetMf.pdb" />
+    <file src="bin\Release\AzureSBLite.NetMf43\be\AzureSBLite.NetMf.pdbx" target="lib\netmf43\be\AzureSBLite.NetMf.pdbx" />
+    <file src="bin\Release\AzureSBLite.NetMf43\be\AzureSBLite.NetMf.pe" target="lib\netmf43\be\AzureSBLite.NetMf.pe" />
+    <file src="bin\Release\AzureSBLite.NetMf43\le\Amqp.NetMF.pdbx" target="lib\netmf43\le\Amqp.NetMF.pdbx" />
+    <file src="bin\Release\AzureSBLite.NetMf43\le\Amqp.NetMF.pe" target="lib\netmf43\le\Amqp.NetMF.pe" />
+    <file src="bin\Release\AzureSBLite.NetMf43\le\AzureSBLite.NetMf.pdb" target="lib\netmf43\le\AzureSBLite.NetMf.pdb" />
+    <file src="bin\Release\AzureSBLite.NetMf43\le\AzureSBLite.NetMf.pdbx" target="lib\netmf43\le\AzureSBLite.NetMf.pdbx" />
+    <file src="bin\Release\AzureSBLite.NetMf43\le\AzureSBLite.NetMf.pe" target="lib\netmf43\le\AzureSBLite.NetMf.pe" />
+    <file src="bin\Release\AzureSBLite.NetMf43\Amqp.NetMF.dll" target="lib\netmf43\Amqp.NetMF.dll" />
+    <file src="bin\Release\AzureSBLite.NetMf43\Amqp.NetMF.pdb" target="lib\netmf43\Amqp.NetMF.pdb" />
+    <file src="bin\Release\AzureSBLite.NetMf43\AzureSBLite.NetMf.dll" target="lib\netmf43\AzureSBLite.NetMf.dll" />
+    <file src="bin\Release\AzureSBLite.NetMf43\AzureSBLite.NetMf.pdb" target="lib\netmf43\AzureSBLite.NetMf.pdb" />
+    <file src="bin\Release\AzureSBLite.WinRT\Amqp.Store.dll" target="lib\windows81\Amqp.Store.dll" />
+    <file src="bin\Release\AzureSBLite.WinRT\Amqp.Store.pdb" target="lib\windows81\Amqp.Store.pdb" />
+    <file src="bin\Release\AzureSBLite.WinRT\Amqp.Store.pri" target="lib\windows81\Amqp.Store.pri" />
+    <file src="bin\Release\AzureSBLite.WinRT\AzureSBLite.WinRT.dll" target="lib\windows81\AzureSBLite.WinRT.dll" />
+    <file src="bin\Release\AzureSBLite.WinRT\AzureSBLite.WinRT.pdb" target="lib\windows81\AzureSBLite.WinRT.pdb" />
+    <file src="bin\Release\AzureSBLite.WinRT\AzureSBLite.WinRT.pri" target="lib\windows81\AzureSBLite.WinRT.pri" />
+    <file src="AzureSBLite\dnx\AzureSbLite.DotNet\bin\Release\netstandard1.6\AzureSbLite.DotNet.dll" target="lib\netcore\AzureSbLite.DotNet.dll" />
+    <file src="AzureSBLite\dnx\AzureSbLite.DotNet\bin\Release\netstandard1.6\AzureSbLite.DotNet.pdb" target="lib\netcore\AzureSbLite.DotNet.pdb" />
+    <file src="AzureSBLite\dnx\AzureSbLite.DotNet\bin\Release\netstandard1.6\AzureSbLite.DotNet.deps.json" target="lib\netcore\AzureSbLite.DotNet.deps.json" />
+  </files>
 </package>
